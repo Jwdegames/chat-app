@@ -52,7 +52,7 @@ var openLogin = true;
 loginBtn.addEventListener("click", function(){
 	if ($("#login-link").text() == "Logout") {
 		// Logout if we are currently logged in.
-		var ajaxurl = 'res/logout_code.php';
+		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/logout_code.php'?>";
 		console.log("Logging Out");
 		data =  {do_logout: "do_logout"};
 		// Perform Login to Server
@@ -81,11 +81,7 @@ loginBtn.addEventListener("click", function(){
 	if (loginForm.style.display == "none") {
 		loginForm.style.display = "";
 		//Hide all elements
-		document.body.childNodes.forEach(function(element) {
-			if (element.id == "content") {
-				element.style.display = "none";
-			}
-		});
+		document.getElementById("content").style.display = 'none';
 	}
 	else {
 		if (openLogin) {
@@ -97,16 +93,12 @@ loginBtn.addEventListener("click", function(){
 });
 
 
-//Handle UI
 var exitLoginBtn = document.getElementById("login-exit");
 exitLoginBtn.addEventListener("click", function(){
-loginForm.style.display = "none";
-//Reveal all elements
-document.body.childNodes.forEach(function(element) {
-	if (element.id == "pg-content") {
-		element.style.display = "";
-		}
-	});
+	loginForm.style.display = "none";
+	//Reveal all elements
+	document.getElementById("content").style.display = 'block';
+	console.log("Exit: " + document.getElementById("content"));
 });
 
 //Handle Login and Registration
@@ -121,7 +113,7 @@ $(document).ready(function(){
 	// Handle Login Button
 	$('#login-send').click(function(){
 		//var clickBtnValue = $(this).val();
-		var ajaxurl = 'res/login_code.php';
+		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/login_code.php'?>";
 		var username = $("#user-box").val();
 		var password = $("#pass-box").val();
 		console.log("Gathering Login Data");
@@ -235,7 +227,7 @@ $(document).ready(function(){
 
 	//Handle Registration
 	$("#register-send").click(function(){
-		var ajaxurl = 'res/register_code.php';
+		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/register_code.php'?>";
 		var username = $("#user-box").val();
 		var password = $("#pass-box").val();
 		console.log("Gathering Registration Data");
