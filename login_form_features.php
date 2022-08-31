@@ -19,7 +19,7 @@ function getCookie(cname) {
 // Shake the login form if the user inputs the wrong password.
 jQuery.fn.shakeLogin = function() {
 	this.each(function(i) {
-		let loginTop = (loginTop==undefined)?$(this).position().top:loginTop;
+		let loginTop = $(this).position().top;
 		let t = loginTop;
 		//var t = 299.5;
 		for (var x = 1; x <= 3; x++) {
@@ -137,6 +137,7 @@ $(document).ready(function(){
 				if ($("#pass-box").hasClass("is-invalid")) {
 					$("#pass-box").removeClass("is-invalid");
 				}
+				$("#login-form").shakeLogin();
 				break;
 			case "Invalid Password!":
 				console.log("Alert: Invalid Password!");
@@ -148,6 +149,7 @@ $(document).ready(function(){
 				if ($("#user-box").hasClass("is-invalid")) {
 					$("#user-box").removeClass("is-invalid");
 				}
+				$("#login-form").shakeLogin();
 				break;
 			case "User is banned!":
 				$("#invalid-user").css("display","");
@@ -160,6 +162,7 @@ $(document).ready(function(){
 				if ($("#pass-box").hasClass("is-invalid")) {
 					$("#pass-box").removeClass("is-invalid");
 				}
+				$("#login-form").shakeLogin();
 				break;
 			case "Success (Regular)!":
 				console.log("Alert: Regular Login Successful!");
