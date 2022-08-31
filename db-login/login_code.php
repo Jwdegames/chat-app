@@ -32,7 +32,7 @@ if(isset($_POST['do_login']))
                 //echo $max_id;
                 // Register new user
                 mysqli_query($connect,"INSERT INTO users (id, username, pass, isAdmin, banned) VALUES ('{$id}' , '{$username}', '{$password}', FALSE, FALSE)");
-                mysqli_query($connect,"INSERT INTO histories(id, username, login_time) VALUES ('{$id}' , '{$username}', CURRENT_TIMESTAMP())");
+                mysqli_query($connect,"INSERT INTO histories(id, userid, login_time) VALUES ('{$id}' , '{$username}', CURRENT_TIMESTAMP())");
                 //echo "abc" .$max_id;
             }
             

@@ -72,9 +72,9 @@ loginBtn.addEventListener("click", function(){
 		var origpath = path.substring(0,path.length-page.length);
 		
 		console.log("Logging out on "+page);
-		if (page == "profile.php" || page=="chat.php") {
-			window.location.href = origpath + "index.php";
-		}
+		// if (page == "profile.php" || page=="chat.php") {
+		// 	window.location.href = origpath + "index.php";
+		// }
 		
 		return;
 	}

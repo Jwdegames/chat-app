@@ -2,7 +2,7 @@
 // Initialize the session
 //session_start();
 
-include $backup . "chat-simulator/chat-app/db_config.php";
+include "../db_config.php";
 
 // Attempt to connect to MySQL database 
 $connect = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
