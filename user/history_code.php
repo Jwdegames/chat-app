@@ -1,11 +1,4 @@
 <?php
-/*
- * Jacob's Test Website's History
- * Bootstrap v4.1
- */
-// Initialize the session
-//session_start();
-
 include "../db_config.php";
 
 // Attempt to connect to MySQL database
@@ -28,7 +21,7 @@ if(isset($_POST['get_histories']))
             // $_SESSION['username']=$row['username'];
             //Get Our Histories!
             $result = mysqli_query($connect,"SELECT login_time, logout_time FROM histories WHERE userid=(SELECT id FROM users WHERE username='$username');");
-            $histories[] = array();
+            // $histories[] = array();
             //Store all histories in an array to send to js
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $histories[] = $row; 

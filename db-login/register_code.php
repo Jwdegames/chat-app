@@ -17,7 +17,7 @@ if(isset($_POST['do_register']))
 {
     $username=$_POST['username'];
     $password=$_POST['password'];
-    $select_data=mysqli_query($connect,"select * from users where username='$username' and password='$password'");
+    $select_data=mysqli_query($connect,"select * from users where username='$username' and pass='$password'");
     $has_user = mysqli_query($connect,"select * from users where username='$username'");
     
     if ($row = mysqli_fetch_row($has_user)) {
@@ -38,8 +38,8 @@ if(isset($_POST['do_register']))
             $max_id =  $rowres['ID'] + 1;
             //echo $max_id;
             // Register new user
-            mysqli_query($connect,"INSERT INTO users (id, username, password, isAdmin, banned) VALUES ('{$max_id}' , '{$username}', '{$password}', FALSE, FALSE)");
-            mysqli_query($connect,"INSERT INTO histories(id, time) VALUES ('{$max_id}' , CURRENT_TIMESTAMP())");
+            mysqli_query($connect,"INSERT INTO users (id, username, pass, isAdmin, banned) VALUES ('{$max_id}' , '{$username}', '{$password}', FALSE, FALSE)");
+            mysqli_query($connect,"INSERT INTO histories(userid, login_time) VALUES ('{$max_id}' , CURRENT_TIMESTAMP())");
             echo "Success!";
             //echo "abc" .$max_id;
             }

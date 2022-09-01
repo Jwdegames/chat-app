@@ -190,10 +190,11 @@ include $backup . 'res/nav.php';
             histories = JSON.parse(response);
             console.log(histories);
         	//console.log(histories); 
-    		var histTable = "<p style = 'margin-left:50px;'><u><b>Login Histories</b></u></p><table style = 'margin-left:50px;' border = '1'><tr><td style = 'width 300px;'>Login Date/Time</td></tr>";
+    		var histTable = "<p style = 'margin-left:50px;'><u><b>Login Histories</b></u></p><table style = 'margin-left:50px;' border = '1'><tr><td style = 'width 300px;'>Login Date/Time</td><td>Logout Date/Time</td></tr>";
+			
             //Make the history table
             for (let [key,value] of Object.entries(histories)) {
-    			histTable += "<tr><td style = 'width = 300px;'>"+value["login_time"]+"</tr><td>";
+    			histTable += "<tr><td style = 'width = 300px;'>"+value["login_time"]+"</td><td>" + value["logout_time"] + "</td></tr>";
             }
 
             //Display history table

@@ -1,11 +1,4 @@
 <?php
-/*
- * Jacob's Test Website's History
- * Bootstrap v4.1
- */
-// Initialize the session
-//session_start();
-
 include "../db_config.php";
 
 // Attempt to connect to MySQL database

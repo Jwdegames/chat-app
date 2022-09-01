@@ -14,8 +14,31 @@ if($connect === false){
 
 if(isset($_POST['do_logout']))
 {
-    
+    $username=$_POST['username'];
+    $has_user = mysqli_query($connect,"select * from users where username='$username'");
+    if ($row = mysqli_fetch_row($has_user)) {
+        $result = mysqli_query($connect,"SELECT id AS 'id' FROM users");
+        if ($rowres = mysqli_fetch_assoc($result)) {
+            $userid = $rowres['id'];
+            // Find the latest login entry from the user
+            $result2 = mysqli_query($connect,"SELECT MAX(id) AS 'id' FROM histories WHERE userid = '$userid'");
+            if ($rowres2 = mysqli_fetch_assoc($result2)) {
+                $id = $rowres2['id'];
+                echo "ID is " . $id . "\n";
+                // Update the entry with logout
+                $result3 = mysqli_query($connect, "UPDATE histories SET logout_time = CURRENT_TIMESTAMP() WHERE id = '$id'");
+                // print_r($result3);
+            } else {
+                echo "Failed to get maximum history id";
+            }
+        } else {
+            echo "Failed to get User ID";
+        }
+    } else {
+        echo "User doesn't exist";
+    }
     $_SESSION['loggedin']= false;
+    echo "Complete";
     exit();
     
 }

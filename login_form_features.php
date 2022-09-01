@@ -54,10 +54,13 @@ loginBtn.addEventListener("click", function(){
 		// Logout if we are currently logged in.
 		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/logout_code.php'?>";
 		console.log("Logging Out");
-		data =  {do_logout: "do_logout"};
+		data =  {do_logout: "do_logout" , 
+			username: "<?php echo $_SESSION['username']?>"
+		};
+		console.log("Logout: " + data["username"]);
 		// Perform Login to Server
 		$.ajax({type:'post',url:ajaxurl, data, success:function (response) {
-		
+				console.log(response);
 			}
 		});
 		$("#login-link").text("Login");
