@@ -66,24 +66,24 @@ loginBtn.addEventListener("click", function(){
 		$("#login-link").text("Login");
 		$("#user-link").text("");
 		$("#chat-link").css("display","none");
-		document.cookie = "loggedin = "+false;
+		localStorage.setItem("loggedin", false);
 		<?php $_SESSION['loggedin']= 0;?>
 
-		//If we are in the profile page, send us to main page
+		// If we are in the profile page, send us to main page
 		var path = window.location.pathname;
 		var page = path.split("/").pop();
 		var origpath = path.substring(0,path.length-page.length);
 		
 		console.log("Logging out on "+page);
-		// if (page == "profile.php" || page=="chat.php") {
-		// 	window.location.href = origpath + "index.php";
-		// }
+		if (page == "profile.php" || page=="chat.php") {
+			window.location.href = origpath + "index.php";
+		}
 		
 		return;
 	}
 	if (loginForm.style.display == "none") {
 		loginForm.style.display = "";
-		//Hide all elements
+		// Hide all elements
 		document.getElementById("content").style.display = 'none';
 	}
 	else {
@@ -106,10 +106,10 @@ exitLoginBtn.addEventListener("click", function(){
 
 //Handle Login and Registration
 $(document).ready(function(){
-	var loginstats = getCookie("loggedin");
+	var loginstats = localStorage.getItem("loggedin");
 	console.log(loginstats);
 	if (loginstats == "true") {
-		$("#user-link").text(getCookie("username"));
+		$("#user-link").text(localStorage.getItem("username"));
 		$("#chat-link").css("display","");
 		$("#login-link").text("Logout");
 	}
@@ -190,10 +190,15 @@ $(document).ready(function(){
 				document.cookie = "password ="+password;
 				document.cookie = "loggedin ="+true;
 				document.cookie = "admin ="+false;
+				localStorage.setItem("username", username);
+				localStorage.setItem("password", password);
+				localStorage.setItem("loggedin", true);
+				localStorage.setItem("admin", false);
 				<?php $_SESSION['loggedin']= $_COOKIE['loggedin'] ?? '';
 				$_SESSION['password']=$_COOKIE['password'] ?? '';
 				$_SESSION['username']=$_COOKIE['username'] ?? '';
 				$_SESSION['admin']=$_COOKIE['admin'] ?? '';?>
+				window.location.href = "<?php echo $backup . "chat-simulator/chat-app/profile.php"?>";
 				break;
 			case "Success (Admin)!":
 				console.log("Alert: Admin Login Successful!");
@@ -218,10 +223,15 @@ $(document).ready(function(){
 				document.cookie = "password ="+password;
 				document.cookie = "loggedin ="+true;
 				document.cookie = "admin ="+true;
+				localStorage.setItem("username", username);
+				localStorage.setItem("password", password);
+				localStorage.setItem("loggedin", true);
+				localStorage.setItem("admin", true);
 				<?php $_SESSION['loggedin']= $_COOKIE['loggedin'] ?? '';
 				$_SESSION['password']=$_COOKIE['password'] ?? '';
 				$_SESSION['username']=$_COOKIE['username'] ?? '';
 				$_SESSION['admin']=$_COOKIE['admin'] ?? '';?>
+				window.location.href = "<?php echo $backup . "chat-simulator/chat-app/profile.php"?>";
 				break;
 			default:
 				console.log("Unusual Response: "+response);
@@ -279,10 +289,15 @@ $(document).ready(function(){
 				document.cookie = "password ="+password;
 				document.cookie = "loggedin ="+true;
 				document.cookie = "admin ="+false;
+				localStorage.setItem("username", username);
+				localStorage.setItem("password", password);
+				localStorage.setItem("loggedin", true);
+				localStorage.setItem("admin", false);
 				<?php $_SESSION['loggedin']= $_COOKIE['loggedin'] ?? '';
 				$_SESSION['password']=$_COOKIE['password'] ?? '';
 				$_SESSION['username']=$_COOKIE['username'] ?? '';
 				$_SESSION['admin']=$_COOKIE['admin'] ?? '';?>
+				
 				break;
 			}
 			
