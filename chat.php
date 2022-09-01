@@ -213,9 +213,10 @@ include $backup . 'res/nav.php';
                 password:password,
                 pmuser:dmuser,
                 message:message};
+		console.log("send_private_message data: " + data);
         //Send the message
         $.ajax({type:'post',url:ajaxurl, data, success:function (response) {
-            console.log(response);
+            console.log("send_private_message: " + response);
             updatePrivateChat(dmuser);
             //updateUsers();
         }

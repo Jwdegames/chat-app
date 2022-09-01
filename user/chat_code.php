@@ -55,7 +55,12 @@ if(isset($_POST['get_private_chat']))
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $data[] = $row;
             }
-            echo json_encode($data);
+            if (isset($data)) {
+                echo json_encode($data);
+            } else {
+                echo json_encode([]);
+            }
+            // echo json_encode($data);
             //echo "Success!";
         }
         
@@ -87,7 +92,11 @@ if(isset($_POST['get_user_data']))
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $users[] = $row; 
             }
-            echo json_encode($users);
+            if (isset($users)) {
+                echo json_encode($users);
+            } else {
+                echo json_encode([]);
+            }
             //echo "Success!";
         }
     
