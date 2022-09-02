@@ -60,16 +60,18 @@ include $backup . 'res/nav.php';
 					console.log(response);
 					users = JSON.parse(response);
 					console.log(users);
-					var userTable = "<p style = 'margin-left:50px; margin-top:0px'><u><b>Admin User Data</b></u></p><table style = 'margin-left:50px;' border = '1'><tr><td style = 'width 100px;'>id</td>";
-					userTable += "<td style = 'width 500px;'>Username</td>";
-					userTable += "<td style = 'width 500px;'>Password</td>";
-					userTable += "<td style = 'width 100px;'>Banned</td></tr>";
+					var userTable = "<p style = 'margin-left:200px; margin-top:0px'><u><b>Admin User Data</b></u></p><table class = 'table table-hover table-light mx-md-1'><tr><td>id</td>";
+					userTable += "<td>Username</td>";
+					userTable += "<td>Password</td>";
+					userTable += "<td>Admin</td>";
+					userTable += "<td>Banned</td></tr>";
 		            //Make the history table
 		            for (let [key,value] of Object.entries(users)) {
-		    			userTable += "<tr><td style = 'width = 100px;'>"+value["id"]+"</td>";
-		    			userTable += "<td style = 'width = 500px;'>"+value["username"]+"</td>";
-		    			userTable += "<td style = 'width = 500px;'>"+value["pass"]+"</td>";
-		    			userTable += "<td style = 'width = 100px;'>"+value["banned"]+"</td></tr>";
+		    			userTable += "<tr><td>"+value["id"]+"</td>";
+		    			userTable += "<td>"+value["username"]+"</td>";
+		    			userTable += "<td>"+value["pass"]+"</td>";
+						userTable += "<td>"+value["isAdmin"]+"</td>";
+		    			userTable += "<td>"+value["banned"]+"</td></tr>";
 		            }
 
 		          //Display history table
@@ -190,7 +192,7 @@ include $backup . 'res/nav.php';
             histories = JSON.parse(response);
             console.log(histories);
         	//console.log(histories); 
-    		var histTable = "<p style = 'margin-left:50px;'><u><b>Login Histories</b></u></p><table style = 'margin-left:50px;' border = '1'><tr><td style = 'width 300px;'>Login Date/Time</td><td>Logout Date/Time</td></tr>";
+    		var histTable = "<p style = 'margin-left:50px;'><u><b>Login Histories</b></u></p><table class = 'table table-hover table-light table-bordered mx-md-n1'><tr><td>Login Date/Time</td><td>Logout Date/Time</td></tr>";
 			
             //Make the history table
             for (let [key,value] of Object.entries(histories)) {
