@@ -3,6 +3,7 @@ include "../db_config.php";
 
 // Attempt to connect to MySQL database
 $connect = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // Check connection
 if($connect === false){
@@ -125,9 +126,9 @@ if(isset($_POST['send_global_message']))
             $result = mysqli_query($connect,"SELECT id FROM users WHERE username='$username'");
             if ($rowres = mysqli_fetch_assoc($result)) {
                 $id =  $rowres['id'];
-            $query = "INSERT INTO globalchat(userid,username,msg,sent) VALUES($id,'$username','$message', CURRENT_TIMESTAMP())";
-            $result = mysqli_query($connect,$query);
-            
+            $query = $mysqli -> prepare("INSERT INTO globalchat(userid,username,msg,sent) VALUES(?, ?, ?, CURRENT_TIMESTAMP())");
+            $query -> bind_param('dss', $id, $username, $message);
+            $result = $query -> execute();
             echo "Success!";
             }
             else {
@@ -164,8 +165,9 @@ if(isset($_POST['send_private_message']))
                 $result = mysqli_query($connect,"SELECT id FROM users WHERE username='$pmuser'");
                 if ($rowres = mysqli_fetch_assoc($result)) {
                     $recid =  $rowres['id'];
-                    $query = "INSERT INTO privatechat(userid,username,recipid,recipient,msg,sent) VALUES($id,'$username',$recid,'$pmuser','$message', CURRENT_TIMESTAMP())";
-                    $result = mysqli_query($connect,$query);
+                    $query = $mysqli -> prepare("INSERT INTO privatechat(userid,username,recipid,recipient,msg,sent) VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP())");
+                    $query -> bind_param('dsdss', $id, $username, $recid, $pmuser, $message);
+                    $result = $query -> execute();
                     
                     echo "Success!";
                 }

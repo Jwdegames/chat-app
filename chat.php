@@ -190,6 +190,7 @@ include $backup . 'res/nav.php';
                 username:username,
                 password:password,
                 message:message};
+		console.log("Message data: " + data['message']);
         //Send the message
         $.ajax({type:'post',url:ajaxurl, data, success:function (response) {
             console.log(response);
