@@ -1,20 +1,38 @@
 <script>
-// Gets a cookie from the browster
+/**
+ * Gets a cookie from the browser  
+ * @param cname string cookie name
+ * @return value of cookie
+ */ 
 function getCookie(cname) {
-	  var name = cname + "=";
-	  var decodedCookie = decodeURIComponent(document.cookie);
-	  var ca = decodedCookie.split(';');
-	  for(var i = 0; i <ca.length; i++) {
-	    var c = ca[i];
-	    while (c.charAt(0) == ' ') {
-	      c = c.substring(1);
-	    }
-	    if (c.indexOf(name) == 0) {
-	      return c.substring(name.length, c.length);
-	    }
-	  }
-	  return "";
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+	var c = ca[i];
+	while (c.charAt(0) == ' ') {
+		c = c.substring(1);
 	}
+	if (c.indexOf(name) == 0) {
+		return c.substring(name.length, c.length);
+	}
+	}
+	return "";
+}
+
+/**
+ * Deletes all cookies
+ */
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;";
+    }
+}
+
 	
 // Shake the login form if the user inputs the wrong password.
 jQuery.fn.shakeLogin = function() {
@@ -55,7 +73,7 @@ loginBtn.addEventListener("click", function(){
 		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/logout_code.php'?>";
 		console.log("Logging Out");
 		data =  {do_logout: "do_logout" , 
-			username: "<?php echo $_SESSION['username']?>"
+			username: "<?php echo $_SESSION['username'] ?? ''?>"
 		};
 		console.log("Logout: " + data["username"]);
 		// Perform Login to Server
@@ -106,12 +124,28 @@ exitLoginBtn.addEventListener("click", function(){
 
 //Handle Login and Registration
 $(document).ready(function(){
+	// Clear cookies and replace them with local storage because cookies persist after logout
+	deleteAllCookies();
 	var loginstats = localStorage.getItem("loggedin");
+
 	console.log(loginstats);
 	if (loginstats == "true") {
+		document.cookie = "username = " + localStorage.getItem("username");
+		document.cookie = "password =" + localStorage.getItem("password");
+		document.cookie = "loggedin =" + localStorage.getItem("loggedin");
+		document.cookie = "admin =" + localStorage.getItem("admin");
+		<?php $_SESSION['loggedin']= $_COOKIE['loggedin'] ?? '';
+		$_SESSION['password']=$_COOKIE['password'] ?? '';
+		$_SESSION['username']=$_COOKIE['username'] ?? '';
+		$_SESSION['admin']=$_COOKIE['admin'] ?? '';?>
 		$("#user-link").text(localStorage.getItem("username"));
 		$("#chat-link").css("display","");
 		$("#login-link").text("Logout");
+	} else {
+		<?php $_SESSION['loggedin']= false;
+		$_SESSION['password']= '';
+		$_SESSION['username']= '';
+		$_SESSION['admin']= ''; ?>
 	}
 	// Handle Login Button
 	$('#login-send').click(function(){
@@ -119,6 +153,14 @@ $(document).ready(function(){
 		var ajaxurl = "<?php echo $backup . 'chat-simulator/chat-app/db-login/login_code.php'?>";
 		var username = $("#user-box").val();
 		var password = $("#pass-box").val();
+		// document.cookie = "username = "+username;
+		// document.cookie = "password ="+password;
+		// document.cookie = "loggedin ="+true;
+		// document.cookie = "admin ="+false;
+		// localStorage.setItem("username", username);
+		// localStorage.setItem("password", password);
+		// localStorage.setItem("loggedin", true);
+		// localStorage.setItem("admin", false);
 		console.log("Gathering Login Data");
 		data =  {do_login: "do_login",
 				username:username,
@@ -261,6 +303,31 @@ $(document).ready(function(){
 					$("#user-box").addClass("is-invalid");
 				}
 				$("#user-taken").css("display","");
+				$("#invalid-user").css("display", "none");
+				$("#invalid-pass").css("display","none");
+				if ($("#pass-box").hasClass("is-invalid")) {
+					$("#pass-box").removeClass("is-invalid");
+				}
+				break;
+			case "Username Can't Be Empty!":
+				if (!$("#user-box").hasClass("is-invalid")) {
+					$("#user-box").addClass("is-invalid");
+				}
+				$("#user-taken").css("display","none");
+				$("#invalid-user").css("display", "");
+				$("#invalid-user").text("Username can't be empty!");
+				$("#invalid-pass").css("display","none");
+				if ($("#pass-box").hasClass("is-invalid")) {
+					$("#pass-box").removeClass("is-invalid");
+				}
+				break;
+			case "Username Can't Contain Invalid Characters!":
+				if (!$("#user-box").hasClass("is-invalid")) {
+					$("#user-box").addClass("is-invalid");
+				}
+				$("#user-taken").css("display","none");
+				$("#invalid-user").css("display", "");
+				$("#invalid-user").text("Username must not contain ', \", /, or \\!");
 				$("#invalid-pass").css("display","none");
 				if ($("#pass-box").hasClass("is-invalid")) {
 					$("#pass-box").removeClass("is-invalid");

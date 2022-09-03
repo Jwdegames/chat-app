@@ -73,11 +73,11 @@ include $backup . 'res/nav.php';
             console.log(histories);
         	//console.log(histories);
         	
-    		var histTable = "<p style = 'margin-left:50px;'><u><b>Users</b></u></p><table style = 'margin-left:50px;' border = '1'><tr><td style = 'width 300px;'>Username</td><td style = 'width 300px;'>ID</td><td>Private Message</tr>";
+    		var histTable = "<p style = 'margin-left:50px;'><u><b>Users</b></u></p><table class = 'table table-hover table-light auto'><tr><td>Username</td><td>ID</td><td>Private Message</tr>";
             //Make the history table
             for (let [key,value] of Object.entries(histories)) {
                 console.log(JSON.stringify(value["username"]));
-    			histTable += "<tr><td style = 'width = 300px;'>"+value["username"]+"</td><td style = 'width = 300px;'>"+value["id"]+"</td><td><div class ='form-group'><input type='submit' class='btn btn-primary btn-block' id='pm"+value["username"]+"' value='PM' onclick='dmuser="+JSON.stringify(value['username'])+";updatePrivateChat();'></div></td></tr>";
+    			histTable += "<tr><td>"+value["username"]+"</td><td>"+value["id"]+"</td><td><div class ='form-group'><input type='submit' class='btn btn-primary btn-block' id='pm"+value["username"]+"' value='PM' onclick='dmuser="+JSON.stringify(value['username'])+";updatePrivateChat();'></div></td></tr>";
             }
 
             //Display history table
@@ -106,7 +106,7 @@ include $backup . 'res/nav.php';
             
             histories = JSON.parse(response);
             console.log(histories);
-        	var histTable = "<div class='form-group shadow-textarea' style='margin-left:50px'><label for='exampleFormControlTextarea6' style='text-decoration:underline; font-weight:bold;'>Private Chat With "+dmuser+"</label><div contenteditable='false' class='form-control z-depth-1' id='exampleFormControlTextarea' style='width:568px; height:600px' readonly>"
+        	var histTable = "<div class='form-group shadow-textarea' style='margin-left:50px'><label for='exampleFormControlTextarea6' style='text-decoration:underline; font-weight:bold;'>Private Chat With "+dmuser+"</label><div contenteditable='false' class='form-control z-depth-1' id='private-chat' style='width:568px; height:600px' readonly>"
             var globalIn = "";
     		//Make the global chat if we can put it in
             if (response != "null") {
@@ -142,7 +142,7 @@ include $backup . 'res/nav.php';
             
             histories = JSON.parse(response);
             console.log(histories);
-        	var histTable = "<div class='form-group shadow-textarea' style='margin-left:50px'><label for='exampleFormControlTextarea6' style='text-decoration:underline; font-weight:bold;'>Global Chat</label><div contenteditable='false' class='form-control z-depth-1' id='exampleFormControlTextarea6' style='width:568px; height:600px' readonly>"
+        	var histTable = "<div class='form-group shadow-textarea' style='margin-right:50px'><label for='exampleFormControlTextarea6' style='text-decoration:underline; font-weight:bold;'>Global Chat</label><div contenteditable='false' class='form-control z-depth-1' id='global-chat' style='width:568px; height:600px' readonly>"
             var globalIn = "";
     		//Make the global chat if we can put it in
             if (response != "null") {

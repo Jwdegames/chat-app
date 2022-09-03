@@ -13,6 +13,8 @@
     	<label>Your username</label>
         <input name="username" class="form-control" id="user-box" placeholder="Username" type="text" value="">
         <div class="invalid-feedback" id = "invalid-user" style="display:none">Invalid Username!</div>
+        <div class="invalid-feedback" id = "empty-user" style="display:none">Username must not be empty!</div>
+        <div class="invalid-feedback" id = "invalid-user-chars" style="display:none">Username must not contain ', ", /, or \!</div>
         <div class="invalid-feedback" id = "user-taken" style="display:none">Username is already in use!</div>
 
     </div>

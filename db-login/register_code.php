@@ -23,6 +23,14 @@ if(isset($_POST['do_register']))
     if ($row = mysqli_fetch_row($has_user)) {
         echo "User Already Exists!";
     }
+    else if ($username == "") {
+        echo "Username Can't Be Empty!";
+        exit();
+    }
+    else if (preg_match('/[\\\'"\/]/', $username)){
+        echo "Username Can't Contain Invalid Characters!";
+        exit();
+    }
     else
     {
         try {
